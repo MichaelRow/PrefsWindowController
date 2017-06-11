@@ -13,9 +13,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
+    var prefs: PrefsWindowController?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        
+        prefs = PrefsWindowController()
+        prefs?.viewControllers = [VC1(),VC2()]
+        prefs?.showPreferencesWindow()
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

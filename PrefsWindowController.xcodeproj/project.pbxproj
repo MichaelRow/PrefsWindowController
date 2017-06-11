@@ -10,6 +10,12 @@
 		7644884F1E16782A0035CB83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7644884E1E16782A0035CB83 /* AppDelegate.swift */; };
 		764488511E16782A0035CB83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764488501E16782A0035CB83 /* Assets.xcassets */; };
 		764488541E16782A0035CB83 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 764488521E16782A0035CB83 /* MainMenu.xib */; };
+		7644885C1E1679310035CB83 /* PrefsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7644885B1E1679310035CB83 /* PrefsWindowController.swift */; };
+		768703A51E174DE900042024 /* PrefsWindowControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768703A41E174DE900042024 /* PrefsWindowControllerProtocol.swift */; };
+		76E3908B1EECE7E700DBF06E /* VC1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E390891EECE7E700DBF06E /* VC1.swift */; };
+		76E3908C1EECE7E700DBF06E /* VC1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76E3908A1EECE7E700DBF06E /* VC1.xib */; };
+		76E3908F1EECE7F300DBF06E /* VC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E3908D1EECE7F300DBF06E /* VC2.swift */; };
+		76E390901EECE7F300DBF06E /* VC2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76E3908E1EECE7F300DBF06E /* VC2.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +24,12 @@
 		764488501E16782A0035CB83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		764488531E16782A0035CB83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		764488551E16782A0035CB83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7644885B1E1679310035CB83 /* PrefsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsWindowController.swift; sourceTree = "<group>"; };
+		768703A41E174DE900042024 /* PrefsWindowControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsWindowControllerProtocol.swift; sourceTree = "<group>"; };
+		76E390891EECE7E700DBF06E /* VC1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VC1.swift; sourceTree = "<group>"; };
+		76E3908A1EECE7E700DBF06E /* VC1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VC1.xib; sourceTree = "<group>"; };
+		76E3908D1EECE7F300DBF06E /* VC2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VC2.swift; sourceTree = "<group>"; };
+		76E3908E1EECE7F300DBF06E /* VC2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VC2.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,11 +63,33 @@
 			isa = PBXGroup;
 			children = (
 				7644884E1E16782A0035CB83 /* AppDelegate.swift */,
+				7644885B1E1679310035CB83 /* PrefsWindowController.swift */,
+				768703A41E174DE900042024 /* PrefsWindowControllerProtocol.swift */,
+				76E390911EECEB0600DBF06E /* VC */,
+				76E390921EECEB1600DBF06E /* Other */,
+			);
+			path = PrefsWindowController;
+			sourceTree = "<group>";
+		};
+		76E390911EECEB0600DBF06E /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				76E390891EECE7E700DBF06E /* VC1.swift */,
+				76E3908A1EECE7E700DBF06E /* VC1.xib */,
+				76E3908D1EECE7F300DBF06E /* VC2.swift */,
+				76E3908E1EECE7F300DBF06E /* VC2.xib */,
+			);
+			name = VC;
+			sourceTree = "<group>";
+		};
+		76E390921EECEB1600DBF06E /* Other */ = {
+			isa = PBXGroup;
+			children = (
 				764488501E16782A0035CB83 /* Assets.xcassets */,
 				764488521E16782A0035CB83 /* MainMenu.xib */,
 				764488551E16782A0035CB83 /* Info.plist */,
 			);
-			path = PrefsWindowController;
+			name = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -116,8 +150,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76E3908C1EECE7E700DBF06E /* VC1.xib in Resources */,
 				764488511E16782A0035CB83 /* Assets.xcassets in Resources */,
 				764488541E16782A0035CB83 /* MainMenu.xib in Resources */,
+				76E390901EECE7F300DBF06E /* VC2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +164,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7644885C1E1679310035CB83 /* PrefsWindowController.swift in Sources */,
 				7644884F1E16782A0035CB83 /* AppDelegate.swift in Sources */,
+				76E3908F1EECE7F300DBF06E /* VC2.swift in Sources */,
+				76E3908B1EECE7E700DBF06E /* VC1.swift in Sources */,
+				768703A51E174DE900042024 /* PrefsWindowControllerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -229,7 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -243,6 +283,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PrefsWindowController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = MichaelRow.PrefsWindowController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -256,6 +297,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PrefsWindowController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = MichaelRow.PrefsWindowController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -281,6 +323,7 @@
 				7644885A1E16782A0035CB83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import PreferencesWindow
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -16,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var prefs: PrefsWindowController?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        window.orderOut(nil)
         
         prefs = PrefsWindowController()
         prefs?.viewControllers = [VC1(),VC2()]

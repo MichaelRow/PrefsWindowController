@@ -26,7 +26,7 @@ class PrefsWindow: NSWindow {
 public class PrefsWindowController: NSWindowController, NSToolbarDelegate, NSWindowDelegate {
     
     fileprivate var toolbar: NSToolbar?
-    fileprivate var toolbarIdentifiers: [String]
+    fileprivate var toolbarIdentifiers: [NSToolbarItem.Identifier]
     fileprivate var activeViewController: PrefsWindowControllerProtocol?
     
     /// The preference panels this preferences window controller displays.
@@ -54,15 +54,15 @@ public class PrefsWindowController: NSWindowController, NSToolbarDelegate, NSWin
     
     public init() {
         
-        toolbarIdentifiers = [String]()
+        toolbarIdentifiers = [NSToolbarItem.Identifier]()
         super.init(window: nil)
-        let styleMask: NSWindowStyleMask = [.titled, .closable, .miniaturizable, .unifiedTitleAndToolbar, .texturedBackground]
+        let styleMask: NSWindow.StyleMask = [.titled, .closable, .miniaturizable, .unifiedTitleAndToolbar, .texturedBackground]
         window = PrefsWindow(contentRect:NSMakeRect(0,0,100,100), styleMask: styleMask, backing: .buffered, defer: true)
         window?.isMovableByWindowBackground = false
     }
     
     required public init?(coder: NSCoder) {
-        toolbarIdentifiers = [String]()
+        toolbarIdentifiers = [NSToolbarItem.Identifier]()
         super.init(coder:coder)
     }
     
@@ -78,7 +78,7 @@ public class PrefsWindowController: NSWindowController, NSToolbarDelegate, NSWin
         window?.alphaValue = 0.0
         showWindow(self)
         window?.makeKeyAndOrderFront(self)
-        NSApplication.shared().activate(ignoringOtherApps: true)
+        NSApplication.shared.activate(ignoringOtherApps: true)
         
         if window?.toolbar != nil {
             if toolbarIdentifiers.count > 0 {
@@ -110,7 +110,7 @@ public class PrefsWindowController: NSWindowController, NSToolbarDelegate, NSWin
         toolbarIdentifiers.removeAll()
         
         if viewControllers.count > 0 {
-            toolbar = NSToolbar(identifier: PrefsControllerIdentifier)
+            toolbar = NSToolbar(identifier: NSToolbar.Identifier(rawValue: PrefsControllerIdentifier))
             toolbar?.allowsUserCustomization = true
             toolbar?.autosavesConfiguration = true
             toolbar?.delegate = self
@@ -140,7 +140,7 @@ public class PrefsWindowController: NSWindowController, NSToolbarDelegate, NSWin
         let newView = preferencesViewController.view
         newView.frame.origin = NSMakePoint(0, 0)
         newView.alphaValue = 0.0
-        newView.autoresizingMask = NSAutoresizingMaskOptions()
+        newView.autoresizingMask = NSView.AutoresizingMask()
         
         if let previousViewController = activeViewController as? NSViewController {
             previousViewController.view.removeFromSuperview()
@@ -176,19 +176,19 @@ public class PrefsWindowController: NSWindowController, NSToolbarDelegate, NSWin
     
     // MARK: Toolbar Delegate Protocol
     
-    public func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+    public func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         
-        if itemIdentifier == NSToolbarFlexibleSpaceItemIdentifier {
+        if itemIdentifier == NSToolbarItem.Identifier.flexibleSpace {
             return nil
         }
-        guard let viewController = viewControllerWithIdentifier(itemIdentifier) else {
+        guard let viewController = viewControllerWithIdentifier(itemIdentifier.rawValue) else {
             return nil
         }
         let identifier = viewController.preferencesIdentifier()
         let label = viewController.preferencesTitle()
         let icon = viewController.preferencesIcon()
         
-        let toolbarItem = NSToolbarItem(itemIdentifier: identifier as String)
+        let toolbarItem = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier(rawValue: identifier as String))
         toolbarItem.label = label
         toolbarItem.paletteLabel = label
         toolbarItem.image = icon
@@ -201,39 +201,39 @@ public class PrefsWindowController: NSWindowController, NSToolbarDelegate, NSWin
         return toolbarItem
     }
     
-    public func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
+    public func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         if toolbarIdentifiers.count == 0 && viewControllers.count > 0 {
             if centerToolbarItems {
-                toolbarIdentifiers.append(NSToolbarFlexibleSpaceItemIdentifier)
+                toolbarIdentifiers.append(NSToolbarItem.Identifier.flexibleSpace)
             }
             for viewController in viewControllers {
-                toolbarIdentifiers.append(viewController.preferencesIdentifier())
+                toolbarIdentifiers.append(NSToolbarItem.Identifier(rawValue: viewController.preferencesIdentifier()))
             }
             if centerToolbarItems {
-                toolbarIdentifiers.append(NSToolbarFlexibleSpaceItemIdentifier)
+                toolbarIdentifiers.append(NSToolbarItem.Identifier.flexibleSpace)
             }
         }
         return toolbarIdentifiers
     }
     
-    public func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
+    public func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         
         return toolbarDefaultItemIdentifiers(toolbar)
     }
     
-    public func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
+    public func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier]  {
         
         return toolbarDefaultItemIdentifiers(toolbar)
     }
     
-    func toolbarItemAction(_ toolbarItem: NSToolbarItem) {
+    @objc func toolbarItemAction(_ toolbarItem: NSToolbarItem) {
         
-        if  activeViewController == nil || activeViewController!.preferencesIdentifier() == toolbarItem.itemIdentifier {
+        if  activeViewController == nil || activeViewController!.preferencesIdentifier() == toolbarItem.itemIdentifier.rawValue {
             return
         }
         
-        guard let destViewController = viewControllerWithIdentifier(toolbarItem.itemIdentifier) else {
-            self.window?.toolbar?.selectedItemIdentifier = activeViewController?.preferencesIdentifier()
+        guard let destViewController = viewControllerWithIdentifier(toolbarItem.itemIdentifier.rawValue) else {
+            self.window?.toolbar?.selectedItemIdentifier = (activeViewController?.preferencesIdentifier()).map { NSToolbarItem.Identifier(rawValue: $0) }
             return
         }
         
@@ -248,13 +248,13 @@ public class PrefsWindowController: NSWindowController, NSToolbarDelegate, NSWin
             DispatchQueue.main.async {
                 destViewController.refuseResignActiveView?()
             }
-            self.window?.toolbar?.selectedItemIdentifier = activeViewController?.preferencesIdentifier()
+            self.window?.toolbar?.selectedItemIdentifier = (activeViewController?.preferencesIdentifier()).map { NSToolbarItem.Identifier(rawValue: $0) }
         }
     }
     
     // MARK: - Window Delegate
     
-    public func windowShouldClose(_ sender: Any) -> Bool {
+    public func windowShouldClose(_ sender: NSWindow) -> Bool {
         guard let canClose = activeViewController?.canClosePrefsWindow?() else {
             return true;
         }

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import PreferencesWindow
 
 class VC2: NSViewController, PrefsWindowControllerProtocol {
 
@@ -24,7 +25,7 @@ class VC2: NSViewController, PrefsWindowControllerProtocol {
     }
     
     func preferencesIcon() -> NSImage {
-        return NSImage(named: NSImageNamePreferencesGeneral)!
+        return NSImage(named: NSImage.Name.preferencesGeneral)!
     }
     
     
